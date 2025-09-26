@@ -1,0 +1,36 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Клиент", "Регистрирует управляет и получает данные с датчиков")
+Person(admin, "Admin", "Администратор платформы Warm House")
+
+System_Boundary(warmhouse, "Cистема умного дома компании 'Тёплый дом'") {
+    Container(web_ui, "WEB UI", "Веб интерфейс клиента и адм.")
+    Container(api_gateway, "API Gateway")
+
+
+    Container(identity_service, "Identity Service", "Авторизация, роли и доступ")
+
+    Container(device_service, "Device Control Service", "Управление устройствами")
+    Container(automation_service, "IoT Automation Service", "Создание польз. сценариев")
+
+    ContainerDb(app_db, "Warmhouse DB", "PostgreeSQL", "Основная БД приложения")
+
+    Container(telemetry_service, "Telemetry service", "Телеметрия и отчетность")
+    
+    BiRel(api_gateway, identity_service, "OAuth2")
+    BiRel(api_gateway, telemetry_service, "Rest Api")
+    BiRel(api_gateway, device_service, "Rest Api")
+    BiRel(api_gateway, automation_service, "Rest Api")
+
+    BiRel(web_ui, api_gateway, "Rest Api")
+
+    BiRel(telemetry_service, app_db, "SQL", "Read/Writes")
+    BiRel(device_service, app_db, "SQL", "Read/Writes")
+    BiRel(automation_service, app_db, "SQL", "Read/Writes")
+    BiRel(identity_service, app_db, "SQL", "Read/Writes")
+}
+
+BiRel(user, web_ui, "HTTPS", "Customer interface")
+BiRel(admin, web_ui, "HTTPS", "Admin panel")

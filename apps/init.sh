@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on any error
-set -e
+#set -e
 
 echo "Starting the Smart Home Sensor API..."
 echo "Building and starting containers..."
@@ -29,3 +29,5 @@ echo "The API is available at http://localhost:8080"
 echo ""
 echo "To view logs, run: docker-compose logs -f"
 echo "To stop the services, run: docker-compose down"
+
+read -n 1 -s -r -p "Press any key to continue..."

@@ -1,0 +1,19 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(iot_service, "IoT Automation Service"){
+
+ComponentDb(automation_database, "PostgresSql", "DB: Automation")
+
+Component(controller, "Controller Layer", "Обработка запросов польз-я")
+Component(service, "Service Layer", "Логика формирования польз-х сценариев")
+Component(dal_layer, "DataAccess", "Работа с БД (репозитории и пр.)")
+
+Rel(controller, service, "Команды и запросы польз-я")
+Rel(service, dal_layer,  "Вызовы ф-ий работы с БД и репозиториев")
+
+Rel(dal_layer, automation_database, "Взаимодействие с БД")
+}
+
+@enduml

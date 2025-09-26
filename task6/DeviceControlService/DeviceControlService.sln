@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControlService", "DeviceControlService\DeviceControlService.csproj", "{F3E125D2-F5D6-4226-913F-E882DE9401F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3E125D2-F5D6-4226-913F-E882DE9401F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3E125D2-F5D6-4226-913F-E882DE9401F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3E125D2-F5D6-4226-913F-E882DE9401F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3E125D2-F5D6-4226-913F-E882DE9401F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDE591E3-4259-4AA6-8878-9B3DCB55329B}
+	EndGlobalSection
+EndGlobal

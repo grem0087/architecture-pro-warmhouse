@@ -1,0 +1,29 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(identity_service, "Identity Service"){
+
+ComponentDb(identity_database, "PostgresSql", "DB: Identity")
+
+Component(controller, "Controllers Layer", "Обработка запросов польз-я")
+
+Component(auth_service, "Authentication Service", "Login/Register")
+Component(user_service, "User Service", "Работа с данными польз-я")
+Component(jwt_service, "Token Service", "Логика работы с токеном")
+
+Component(dal_layer, "DataAccess", "Работа с БД (репозитории и пр.)")
+
+Rel(controller, auth_service, "Запросы на действия авторизации")
+Rel(controller, user_service, "Запросы на операции с пользователем")
+Rel(controller, jwt_service, "Запросы на операции с токеном")
+
+Rel(jwt_service, dal_layer, "")
+Rel(auth_service, dal_layer, "")
+Rel(user_service, dal_layer,  "Вызовы ф-ий работы с БД и репозиториев")
+
+Rel(dal_layer, identity_database, "Взаимодействие с БД")
+
+}
+
+@enduml

@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "IoTAutomationServiceApi",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/scenarios": {
+      "get": {
+        "tags": [
+          "Scenarios"
+        ],
+        "summary": "Получить список всех сценариев польз-я",
+        "description": "Пример запроса:\r\nGET /api/scenarios\r\n\r\nВозвращает полный список созданных польз-м сценариев",
+        "responses": {
+          "200": {
+            "description": "Успешное выполнение. Возвращает список сценариев.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scenario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Scenarios"
+        ],
+        "summary": "Создать новый польз-ий сценарий для умного дома",
+        "description": "Пример запроса:\r\nPOST /api/scenarios\r\n\r\nТело запроса (JSON):\r\n{\r\n    \"name\": \"My scenario 1\",\r\n}\r\n\r\nВсе поля обязательны для заполнения.",
+        "requestBody": {
+          "description": "Данные для создания сценария",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScenarioDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScenarioDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScenarioDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Сценарий создан",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scenarios/{id}": {
+      "get": {
+        "tags": [
+          "Scenarios"
+        ],
+        "summary": "Получить сыенарий по ID",
+        "description": "Пример запроса:\r\nGET /api/scenarios/1\r\n\r\nПараметры:\r\n- id: Числовой идентификатор сценария (обязательный)\r\n\r\nИспользуется для получения детальной информации о конкретном сценарие.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор сценария",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Сценарий получен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Сценарий с указанным ID не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Scenarios"
+        ],
+        "summary": "Обновить существующий сценарий",
+        "description": "Пример запроса:\r\nPUT /api/scenarios/1\r\n\r\nТело запроса (JSON):\r\n{\r\n    \"name\": \"Обновленное название\",\r\n}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор сценария для обновления",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные для обновления",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScenariotDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScenariotDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScenariotDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Сценарий успешно обновлен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Сценарий не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Scenarios"
+        ],
+        "summary": "Удалить сценарий",
+        "description": "Пример запроса:\r\nDELETE /api/scenarios/1\r\n\r\nУдаляет сценарий с указанным ID из системы.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор сценария для удаления",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Сценарий успешно удален"
+          },
+          "404": {
+            "description": "Сценарий не найден",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateScenarioDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Название сценария",
+            "example": "my scenario"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DTO для создания сценария"
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Scenario": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор сценария",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Название сценария",
+            "example": "Home morning"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Модель сценария"
+      },
+      "UpdateScenariotDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Название сценария",
+            "nullable": true,
+            "example": "my room scenario"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DTO для обновления сценария"
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+@DeviceControlService_HostAddress = http://localhost:5034
+
+GET {{DeviceControlService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
