@@ -68,6 +68,7 @@
 ![Логотип](schemas/automation_service_containerco.png)
 
 - [Диаграмма сервиса телеметрии и отчетов](schemas/newapp/telemetry_service_container.puml)
+
 ![Логотип](schemas/telemetry_service_container.png)
 
 **Диаграмма кода (Code)**
@@ -80,6 +81,7 @@
 
 [ER-диаграмма](schemas/newapp/emdiagram.puml)
 ![ER-диаграмма](schemas/erdiagram.png)
+
 # Задание 4. Создание и документирование API
 
 ### 1. Тип API
