@@ -1,0 +1,19 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(telemetry_service, "Telemetry Service"){
+
+ComponentDb(telemetry_database, "PostgresSql", "DB: Telemetry")
+
+Component(controller, "Controller Layer", "Обработка запросов польз-я")
+Component(service, "Service Layer", "Данные от датчиков и прочая телеметрия приложения")
+Component(dal_layer, "DataAccess", "Работа с БД (репозитории и пр.)")
+
+Rel(controller, service, "Команды и запросы польз-я")
+Rel(service, dal_layer,  "Вызовы ф-ий работы с БД и репозиториев")
+
+Rel(dal_layer, telemetry_database, "Взаимодействие с БД")
+}
+
+@enduml

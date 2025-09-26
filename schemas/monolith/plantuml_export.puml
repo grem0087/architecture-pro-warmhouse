@@ -1,14 +1,14 @@
 @startuml
-!include Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-title Диаграмма контекста системы Warmhouse
+title Диаграмма контекста системы WarmHouse
 
 Person(user, "Клиент", "Получает информацию о температуре с датчиков")
 Person(engineer, "Инженер", "Подключает новое оборудование, регистрирует датчики в системе")
 
-System_Boundary(warmhouse, "Warmhouse",) {
-  Container(app, "WarmhouseWeb", "Управление и мониторинг датчиков температуры")
-  SystemDb(db, "WarmhouseDb", $descr="Хранение данных о датчиках", $type="PostgreSql 16")
+System_Boundary(warmhouse, "WarmHouse",) {
+  Container(app, "WarmHouseManagement", "Управление и мониторинг датчиков температуры")
+  SystemDb(db, "WarmHouseDb", $descr="Хранение данных о датчиках", $type="PostgreSql 16")
   System_Ext(temp_sensor, "Датчики температуры", "Установленные в домах датчики")
   
 

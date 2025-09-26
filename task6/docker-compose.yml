@@ -1,25 +1,22 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: smarthome-postgres
+    container_name: postgres-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
-    networks:
-      - smarthome-network
     volumes:
-      - "./smart_home/init.sql:/docker-entrypoint-initdb.d/init.sql"
       - "C:/work/practicum/sprint1/Data:/var/lib/postgresql/data"
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - smarthome-network      
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d smarthome"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d telemetry"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 30s
 
   temperature-api:
     build:
@@ -31,7 +28,7 @@ services:
     networks:
       - smarthome-network
       
-  app:
+  old-good-app:
     build:
       context: ./smart_home
       dockerfile: Dockerfile
@@ -50,9 +47,39 @@ services:
     networks:
       - smarthome-network
 
-volumes:
-  postgres-data:
+  telemetry-service:
+    build: ./telemetry-service
+    container_name: telemetry-service
+    ports:
+      - "8082:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: telemetry
+    networks:
+      - smarthome-network      
+    depends_on:
+      postgres:
+        condition: service_healthy
 
+  device-control-service:
+    build:
+      context: ./DeviceControlService
+      dockerfile: ./DeviceControlService/Dockerfile
+    container_name: device-control-service
+    ports:
+      - "8083:8080"
+    networks:
+      - smarthome-network      
+    depends_on:
+      postgres:
+        condition: service_healthy        
+
+volumes:
+  postgres_data:
+  
 networks:
   smarthome-network:
-    driver: bridge
+    driver: bridge  

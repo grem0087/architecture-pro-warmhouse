@@ -1,0 +1,22 @@
+@startuml
+
+class TelemetryController {
+    +route(request: HttpRequest): HttpResponse - направление REST запросов к соответствующему методу сервиса
+}
+
+class TelemetryService {
+    +GetSensorsInfo(SensorIds: guid[], DateFrom: DateTime, DateTo: DateTime): SensorsInfo - получение данных от датчиков (датчике) за период
+    +GetSensorsLocationInfo(Location: guid, DateFrom: DateTime, DateTo: DateTime): SensorsLocationInfo - получение информации о датчиков по Ид локации
+    +GetSensorsStatus(SensorIds: guid[], DateFrom: DateTime, DateTo: DateTime): SensorsStatus - получение отчета о датчиках (датчике) за период
+}
+
+class TelemetryRepository {
+    +GetSensorsInfoByLocation(Location: guid, DateFrom: DateTime, DateTo: DateTime): SensorData[] - данные от датчиков, выборка по локации 
+    +GetSensorsInfo(SensorIds: guid[], DateFrom: DateTime, DateTo: DateTime): SensorData[] - данные от датчиков по идентификатору
+    +GetSensorsStatus(SensorIds: guid[], DateFrom: DateTime, DateTo: DateTime): SensorStatus[] - статусы датчиков за период
+}
+
+TelemetryController --> TelemetryService : Данные запроса
+TelemetryService --> TelemetryRepository : Запрос данных
+
+@enduml

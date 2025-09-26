@@ -1,0 +1,73 @@
+@startuml
+
+entity User {
+    * id : int
+    login : string
+    name : string
+    password : string
+    user_role : int
+}
+
+entity UserRole {
+    * id : int
+    name : string
+}
+
+entity UsersHouses {
+    user_id : int
+    house_id : int
+}
+
+entity House {
+    * id : int
+    * name : string
+}
+
+entity Device {
+    * id : int
+    * house_id : int
+    * name : string
+}
+
+entity DeviceType {
+    * id : int
+    * type : string
+}
+
+entity TelemetryData {
+    * id : int
+    * data : string
+    * device_id : int
+    * date_created : timestamp
+}
+
+entity Scenario {
+    * id : int
+    * name : string
+}
+
+entity ScenarioType {
+    * id : int
+    * value : string
+}
+
+entity ScenarioTrigger {
+    * id : int
+    * scenario_id : int
+    * type_id : int
+      device_id : int
+      trigger_date : string
+    * value : string
+}
+
+User ||--o{ UsersHouses
+User ||--|| UserRole
+UsersHouses }o--|| House
+Device }o--|| House
+Device }o--|| DeviceType
+TelemetryData ||--|{ Device
+ScenarioTrigger }o--|| ScenarioType
+ScenarioTrigger ||--|| Device
+ScenarioTrigger }|--|| Scenario
+
+@enduml

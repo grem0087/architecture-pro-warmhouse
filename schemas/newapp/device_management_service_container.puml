@@ -1,0 +1,24 @@
+@startuml
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(device_management_service, "Device Management Service"){
+
+ComponentDb(device_management_database, "PostgresSql", "DB: DeviceManagement")
+
+Component(controller, "Controller Layer", "Обработка запросов польз-я")
+Component(service, "Service Layer", "Логика работы с устр-и")
+Component(device_adapter, "Devices adapter",  "Реализация взаимоджействия через различными протоколами с различными устр-и")
+Component(dal_layer, "DataAccess", "Работа с БД (репозитории и пр.)")
+
+Rel(controller, service, "Команды и запросы польз-я")
+Rel(service, device_adapter,  "Команды и запросы к устр-м")
+Rel(service, dal_layer,  "Вызовы ф-ий работы с БД и репозиториев")
+
+Rel(dal_layer, device_management_database, "Взаимодействие с БД")
+}
+
+Container_Ext(device, "Устройства", "Датчики, переключатели и прочее")
+Rel(device_adapter,  device, "Вызов внешних устр-в")
+
+@enduml
